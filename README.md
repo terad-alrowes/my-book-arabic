@@ -146,6 +146,6 @@ my-book-arabic/
 
 ## 🙏 شكر خاص / Special Thanks
 
-شكراً لاستخدامك تطبيق My Book Arabic!
+شكراً لاستخدامكم التطبيق.   د. طراد الرويس
 
 **Thank you for using My Book Arabic Application!**
