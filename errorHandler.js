@@ -1,0 +1,4 @@
+- AppError class
+- errorHandler middleware
+- catchAsyncErrors wrapper
+- رسائل عربية شاملة

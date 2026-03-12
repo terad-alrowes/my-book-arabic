@@ -1,0 +1,1490 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المنصة العربية الأولى</title>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&amp;family=Tajawal:wght@300;400;500;700;800&amp;family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&amp;family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-0:#f6f2ec;--bg-1:#ffffff;--bg-2:#f0ebe3;--bg-3:#e8e1d6;
+  --text-0:#1a1510;--text-1:#5c5347;--text-2:#8c8479;
+  --accent:#8b6914;--accent-h:#a67c1a;--accent-bg:#f5efd8;
+  --border:#e0d8cc;--success:#2d7a3d;--error:#c13a3a;
+  --shadow:0 2px 12px rgba(26,21,16,.08);
+  --shadow-lg:0 8px 32px rgba(26,21,16,.12);
+  --radius:10px;--radius-lg:16px;
+  --font-ar-display:'Aref Ruqaa',serif;
+  --font-ar-body:'Tajawal',sans-serif;
+  --font-en-display:'Cormorant Garamond',serif;
+  --font-en-body:'Crimson Pro',serif;
+  --transition:0.3s cubic-bezier(.4,0,.2,1);
+}
+html.dark{
+  --bg-0:#100f17;--bg-1:#1a1825;--bg-2:#232131;--bg-3:#2d2b3a;
+  --text-0:#ede8df;--text-1:#9b9488;--text-2:#6b6560;
+  --accent:#d4a84b;--accent-h:#e0b95e;--accent-bg:#2a2318;
+  --border:#2d2b38;--success:#4caf6a;--error:#e05555;
+  --shadow:0 2px 12px rgba(0,0,0,.25);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.4);
+}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:var(--font-ar-body);background:var(--bg-0);color:var(--text-0);
+  line-height:1.7;transition:background var(--transition),color var(--transition);
+}
+html[dir="ltr"] body{font-family:var(--font-en-body)}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text-2)}
+a{color:var(--accent);text-decoration:none}
+button{cursor:pointer;font-family:inherit;border:none;background:none;color:inherit;font-size:inherit}
+input,textarea,select{font-family:inherit;font-size:16px;color:var(--text-0);background:var(--bg-1);border:1.5px solid var(--border);border-radius:var(--radius);padding:10px 14px;width:100%;transition:border var(--transition);outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:80px}
+select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%238c8479' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 12px center;padding-inline-start:14px;padding-inline-end:34px}
+html[dir="ltr"] select{background-position:right 12px center}
+
+/* ===== APP SHELL ===== */
+#app{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+
+/* ===== HEADER ===== */
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 24px;background:var(--bg-1);border-bottom:1px solid var(--border);
+  z-index:100;flex-shrink:0;gap:12px;
+}
+.header-logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.header-logo .logo-icon{
+  width:38px;height:38px;border-radius:8px;
+  background:linear-gradient(135deg,var(--accent),#c9843a);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:18px;font-weight:700;
+  font-family:var(--font-ar-display);line-height:1;
+}
+.header-logo h1{
+  font-family:var(--font-ar-display);font-size:1.25rem;font-weight:700;
+  color:var(--text-0);white-space:nowrap;
+}
+html[dir="ltr"] .header-logo h1{font-family:var(--font-en-display);font-size:1.35rem}
+.header-actions{display:flex;align-items:center;gap:8px}
+.header-btn{
+  width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  transition:all var(--transition);font-size:15px;color:var(--text-1);
+}
+.header-btn:hover{background:var(--bg-2);color:var(--accent)}
+.header-btn.active{background:var(--accent-bg);color:var(--accent)}
+
+/* ===== MAIN LAYOUT ===== */
+.main{flex:1;overflow:hidden;display:flex;position:relative}
+
+/* ===== DASHBOARD ===== */
+.dashboard{flex:1;overflow-y:auto;padding:32px 28px}
+.dash-header{margin-bottom:32px;animation:fadeUp .5s ease both}
+.dash-header h2{font-family:var(--font-ar-display);font-size:2rem;margin-bottom:6px}
+html[dir="ltr"] .dash-header h2{font-family:var(--font-en-display);font-size:2.2rem}
+.dash-header p{color:var(--text-1);font-size:1.05rem}
+.stats-bar{
+  display:flex;gap:16px;margin-bottom:32px;flex-wrap:wrap;
+  animation:fadeUp .5s ease .1s both;
+}
+.stat-card{
+  background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px 20px;flex:1;min-width:140px;
+  display:flex;align-items:center;gap:12px;transition:all var(--transition);
+}
+.stat-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}
+.stat-icon{
+  width:42px;height:42px;border-radius:10px;background:var(--accent-bg);
+  display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:18px;
+}
+.stat-value{font-size:1.4rem;font-weight:700;line-height:1.2}
+.stat-label{font-size:.82rem;color:var(--text-2)}
+
+.books-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:20px;animation:fadeUp .5s ease .2s both;
+}
+.book-card{
+  background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:20px;cursor:pointer;transition:all var(--transition);
+  display:flex;flex-direction:column;gap:14px;
+}
+.book-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.book-cover{
+  width:100%;aspect-ratio:3/4;border-radius:4px 10px 10px 4px;
+  position:relative;overflow:hidden;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:20px;text-align:center;
+  box-shadow:-3px 0 6px rgba(0,0,0,.1),2px 2px 8px rgba(0,0,0,.08);
+}
+.book-cover::before{
+  content:'';position:absolute;inset:0;left:0;width:6px;
+  background:linear-gradient(to right,rgba(0,0,0,.2),rgba(0,0,0,.05),transparent);
+}
+html[dir="ltr"] .book-cover::before{left:auto;right:0;background:linear-gradient(to left,rgba(0,0,0,.2),rgba(0,0,0,.05),transparent)}
+.book-cover-title{
+  font-family:var(--font-ar-display);font-size:1.15rem;font-weight:700;
+  color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.3);z-index:1;line-height:1.5;
+}
+html[dir="ltr"] .book-cover-title{font-family:var(--font-en-display);font-size:1.25rem}
+.book-cover-author{
+  font-size:.8rem;color:rgba(255,255,255,.85);z-index:1;margin-top:8px;
+}
+.book-cover-deco{
+  position:absolute;width:100%;height:100%;top:0;left:0;opacity:.12;
+  background-image:repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(255,255,255,.5) 10px,rgba(255,255,255,.5) 11px);
+}
+.book-meta h3{font-size:1rem;font-weight:600;margin-bottom:2px;line-height:1.4}
+.book-meta p{font-size:.82rem;color:var(--text-2)}
+.book-meta-row{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.book-badge{
+  font-size:.7rem;padding:3px 8px;border-radius:20px;
+  background:var(--accent-bg);color:var(--accent);font-weight:500;
+}
+
+.new-book-card{
+  border:2px dashed var(--border);background:transparent;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;min-height:280px;color:var(--text-2);
+}
+.new-book-card:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+.new-book-card i{font-size:2rem}
+.new-book-card span{font-size:.95rem;font-weight:500}
+
+/* ===== EMPTY STATE ===== */
+.empty-state{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:60px 20px;gap:16px;
+  animation:fadeUp .6s ease both;
+}
+.empty-icon{
+  width:100px;height:100px;border-radius:50%;background:var(--accent-bg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.5rem;color:var(--accent);margin-bottom:8px;
+}
+.empty-state h3{font-family:var(--font-ar-display);font-size:1.4rem}
+html[dir="ltr"] .empty-state h3{font-family:var(--font-en-display)}
+.empty-state p{color:var(--text-2);max-width:360px}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 24px;border-radius:var(--radius);font-weight:600;
+  background:var(--accent);color:#fff;transition:all var(--transition);font-size:.95rem;
+}
+.btn-primary:hover{background:var(--accent-h);transform:translateY(-1px);box-shadow:0 4px 16px rgba(139,105,20,.3)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 24px;border-radius:var(--radius);font-weight:500;
+  background:var(--bg-2);color:var(--text-0);transition:all var(--transition);font-size:.95rem;border:1px solid var(--border);
+}
+.btn-secondary:hover{background:var(--bg-3);border-color:var(--text-2)}
+.btn-danger{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 18px;border-radius:var(--radius);font-weight:500;
+  background:var(--error);color:#fff;transition:all var(--transition);font-size:.85rem;
+}
+.btn-danger:hover{opacity:.85}
+.btn-sm{padding:6px 14px;font-size:.82rem}
+.btn-icon{
+  width:34px;height:34px;border-radius:8px;display:inline-flex;
+  align-items:center;justify-content:center;transition:all var(--transition);color:var(--text-1);
+}
+.btn-icon:hover{background:var(--bg-2);color:var(--accent)}
+.btn-icon.active{background:var(--accent-bg);color:var(--accent)}
+
+/* ===== MODAL ===== */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  animation:fadeIn .2s ease;backdrop-filter:blur(4px);
+}
+.modal{
+  background:var(--bg-1);border-radius:var(--radius-lg);width:100%;max-width:520px;
+  max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:scaleIn .25s ease;
+}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;border-bottom:1px solid var(--border);
+}
+.modal-header h3{font-family:var(--font-ar-display);font-size:1.25rem}
+html[dir="ltr"] .modal-header h3{font-family:var(--font-en-display);font-size:1.35rem}
+.modal-body{padding:24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:.88rem;font-weight:500;margin-bottom:6px;color:var(--text-1)}
+.form-row{display:flex;gap:14px}
+.form-row .form-group{flex:1}
+.radio-group{display:flex;gap:10px;flex-wrap:wrap}
+.radio-option{
+  flex:1;min-width:80px;padding:10px 16px;border:1.5px solid var(--border);
+  border-radius:var(--radius);text-align:center;cursor:pointer;transition:all var(--transition);
+  font-size:.88rem;font-weight:500;
+}
+.radio-option.selected{border-color:var(--accent);background:var(--accent-bg);color:var(--accent)}
+.radio-option:hover:not(.selected){border-color:var(--text-2)}
+
+/* ===== EDITOR VIEW ===== */
+.editor-view{flex:1;display:flex;overflow:hidden}
+.editor-sidebar{
+  width:280px;background:var(--bg-1);border-inline-end:1px solid var(--border);
+  display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;
+  transition:width var(--transition);
+}
+.editor-sidebar.collapsed{width:0;border:none}
+.sidebar-header{
+  padding:16px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.sidebar-header h3{font-size:.95rem;font-weight:600}
+.chapter-list{flex:1;overflow-y:auto;padding:8px}
+.chapter-item{
+  display:flex;align-items:center;gap:8px;padding:10px 14px;
+  border-radius:var(--radius);cursor:pointer;transition:all var(--transition);
+  margin-bottom:2px;font-size:.9rem;
+}
+.chapter-item:hover{background:var(--bg-2)}
+.chapter-item.active{background:var(--accent-bg);color:var(--accent);font-weight:600}
+.chapter-item .ch-num{
+  min-width:24px;height:24px;border-radius:6px;background:var(--bg-3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;font-weight:700;flex-shrink:0;
+}
+.chapter-item.active .ch-num{background:var(--accent);color:#fff}
+.chapter-item .ch-title{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chapter-item .ch-del{
+  opacity:0;transition:opacity var(--transition);color:var(--error);font-size:.8rem;
+}
+.chapter-item:hover .ch-del{opacity:1}
+.add-chapter-btn{
+  margin:8px 10px;padding:10px;border-radius:var(--radius);border:1.5px dashed var(--border);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-size:.85rem;color:var(--text-2);transition:all var(--transition);
+}
+.add-chapter-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+
+/* ===== EDITOR MAIN ===== */
+.editor-main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.editor-topbar{
+  display:flex;align-items:center;gap:12px;padding:10px 18px;
+  border-bottom:1px solid var(--border);background:var(--bg-1);flex-shrink:0;flex-wrap:wrap;
+}
+.editor-topbar .book-title-edit{
+  font-family:var(--font-ar-display);font-size:1.1rem;font-weight:700;
+  flex:1;min-width:120px;border:none;background:transparent;padding:4px 0;
+}
+html[dir="ltr"] .editor-topbar .book-title-edit{font-family:var(--font-en-display);font-size:1.2rem}
+.editor-topbar-actions{display:flex;gap:6px;align-items:center}
+
+.toolbar{
+  display:flex;align-items:center;gap:2px;padding:6px 18px;
+  border-bottom:1px solid var(--border);background:var(--bg-1);
+  flex-shrink:0;flex-wrap:wrap;
+}
+.toolbar-sep{width:1px;height:22px;background:var(--border);margin:0 6px}
+.toolbar button{
+  width:32px;height:32px;border-radius:6px;display:flex;
+  align-items:center;justify-content:center;font-size:14px;
+  color:var(--text-1);transition:all var(--transition);
+}
+.toolbar button:hover{background:var(--bg-2);color:var(--accent)}
+.toolbar button.active{background:var(--accent-bg);color:var(--accent)}
+.toolbar select{
+  width:auto;padding:4px 8px;font-size:.8rem;border-radius:6px;
+}
+
+.editor-content{flex:1;overflow-y:auto;padding:32px;background:var(--bg-0)}
+.editor-area{
+  max-width:780px;margin:0 auto;min-height:500px;
+  background:var(--bg-1);border-radius:var(--radius);
+  padding:40px;box-shadow:var(--shadow);
+  border:1px solid var(--border);line-height:1.9;font-size:1.05rem;
+  outline:none;
+}
+.editor-area:empty::before{
+  content:attr(data-placeholder);color:var(--text-2);pointer-events:none;
+}
+.editor-area h1{font-family:var(--font-ar-display);font-size:1.8rem;margin:16px 0 10px;line-height:1.4}
+.editor-area h2{font-family:var(--font-ar-display);font-size:1.4rem;margin:14px 0 8px;line-height:1.4}
+.editor-area h3{font-size:1.15rem;font-weight:700;margin:12px 0 6px}
+html[dir="ltr"] .editor-area h1,html[dir="ltr"] .editor-area h2{font-family:var(--font-en-display)}
+.editor-area ul,.editor-area ol{padding-inline-start:24px;margin:8px 0}
+.editor-area blockquote{
+  border-inline-start:3px solid var(--accent);padding-inline-start:16px;
+  color:var(--text-1);font-style:italic;margin:12px 0;
+}
+.editor-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 18px;border-top:1px solid var(--border);background:var(--bg-1);
+  font-size:.8rem;color:var(--text-2);flex-shrink:0;
+}
+
+/* ===== AI PANEL ===== */
+.ai-panel{
+  width:380px;background:var(--bg-1);border-inline-start:1px solid var(--border);
+  display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;
+  transition:width var(--transition),opacity var(--transition);
+}
+.ai-panel.hidden{width:0;opacity:0;border:none;pointer-events:none}
+.ai-header{
+  padding:16px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.ai-header h3{font-size:.95rem;font-weight:600;display:flex;align-items:center;gap:8px}
+.ai-header h3 i{color:var(--accent)}
+.ai-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 18px}
+.ai-action-btn{
+  padding:10px 12px;border-radius:var(--radius);border:1px solid var(--border);
+  font-size:.8rem;display:flex;align-items:center;gap:6px;
+  transition:all var(--transition);text-align:start;
+}
+.ai-action-btn:hover{border-color:var(--accent);background:var(--accent-bg);color:var(--accent)}
+.ai-action-btn i{font-size:14px;color:var(--accent)}
+.ai-custom{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.ai-custom textarea{min-height:60px;font-size:.88rem}
+.ai-custom .ai-send-row{display:flex;gap:8px}
+.ai-response{
+  flex:1;overflow-y:auto;padding:14px 18px;border-top:1px solid var(--border);
+}
+.ai-response-content{
+  font-size:.9rem;line-height:1.8;white-space:pre-wrap;word-wrap:break-word;
+}
+.ai-response-content.empty{color:var(--text-2);font-style:italic;text-align:center;padding-top:40px}
+.ai-loading{
+  display:flex;align-items:center;gap:10px;padding:16px;
+  color:var(--accent);font-size:.9rem;
+}
+.ai-loading .dots span{animation:blink 1.4s infinite both}
+.ai-loading .dots span:nth-child(2){animation-delay:.2s}
+.ai-loading .dots span:nth-child(3){animation-delay:.4s}
+.ai-response-actions{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+
+/* ===== PREVIEW ===== */
+.preview-overlay{
+  position:fixed;inset:0;background:var(--bg-0);z-index:500;
+  display:flex;flex-direction:column;overflow:hidden;animation:fadeIn .3s ease;
+}
+.preview-topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 24px;background:var(--bg-1);border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.preview-body{flex:1;overflow-y:auto;padding:40px 20px}
+.preview-page{
+  max-width:680px;margin:0 auto 40px;background:var(--bg-1);
+  border-radius:var(--radius);padding:60px 50px;box-shadow:var(--shadow-lg);
+  border:1px solid var(--border);
+}
+.preview-cover{
+  text-align:center;padding:80px 40px;border-radius:var(--radius);
+  margin-bottom:40px;position:relative;overflow:hidden;
+}
+.preview-cover h1{
+  font-family:var(--font-ar-display);font-size:2.4rem;color:#fff;
+  text-shadow:0 2px 8px rgba(0,0,0,.3);position:relative;z-index:1;
+}
+html[dir="ltr"] .preview-cover h1{font-family:var(--font-en-display);font-size:2.6rem}
+.preview-cover p{color:rgba(255,255,255,.9);font-size:1.1rem;margin-top:12px;position:relative;z-index:1}
+.preview-toc{margin-bottom:40px}
+.preview-toc h2{
+  font-family:var(--font-ar-display);font-size:1.6rem;margin-bottom:20px;
+  padding-bottom:12px;border-bottom:2px solid var(--accent);display:inline-block;
+}
+html[dir="ltr"] .preview-toc h2{font-family:var(--font-en-display)}
+.toc-item{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:8px 0;border-bottom:1px dotted var(--border);font-size:1rem;
+}
+.toc-item span:last-child{color:var(--text-2);font-size:.9rem}
+.preview-chapter{margin-bottom:40px;page-break-before:always}
+.preview-chapter h2{
+  font-family:var(--font-ar-display);font-size:1.5rem;margin-bottom:16px;
+  color:var(--accent);
+}
+html[dir="ltr"] .preview-chapter h2{font-family:var(--font-en-display)}
+.preview-chapter-content{line-height:2;font-size:1.05rem}
+.preview-chapter-content p{margin-bottom:12px}
+
+/* ===== CONFIRM DIALOG ===== */
+.confirm-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  animation:fadeIn .15s ease;backdrop-filter:blur(4px);
+}
+.confirm-box{
+  background:var(--bg-1);border-radius:var(--radius-lg);padding:28px;
+  max-width:380px;width:100%;box-shadow:var(--shadow-lg);animation:scaleIn .2s ease;
+  text-align:center;
+}
+.confirm-box p{margin-bottom:20px;font-size:1rem;line-height:1.6}
+.confirm-actions{display:flex;gap:10px;justify-content:center}
+
+/* ===== INLINE EDIT ===== */
+.inline-edit{
+  display:flex;gap:8px;align-items:center;
+}
+.inline-edit input{
+  padding:6px 10px;font-size:.88rem;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .editor-sidebar{width:240px}
+  .ai-panel{width:300px}
+}
+@media(max-width:700px){
+  .header{padding:10px 16px}
+  .header-logo h1{display:none}
+  .dashboard{padding:20px 16px}
+  .dash-header h2{font-size:1.5rem}
+  .stats-bar{gap:10px}
+  .stat-card{padding:12px 14px;min-width:120px}
+  .books-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+  .editor-sidebar{position:fixed;inset:0;width:100%;z-index:200;border:none}
+  .editor-sidebar.collapsed{display:none}
+  .ai-panel{position:fixed;inset:0;width:100%;z-index:200;border:none}
+  .ai-panel.hidden{display:none}
+  .editor-content{padding:16px}
+  .editor-area{padding:24px}
+  .toolbar{padding:6px 10px}
+  .preview-page{padding:30px 24px}
+  .preview-cover{padding:50px 24px}
+  .form-row{flex-direction:column;gap:0}
+  .modal{max-width:100%;margin:10px}
+}
+@media(max-width:480px){
+  .books-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .book-card{padding:14px}
+  .editor-area{padding:18px;font-size:.98rem}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ============================
+   STATE & CONFIG
+   ============================ */
+const GENRES = [
+  {id:'novel',ar:'رواية',en:'Novel',colors:['#1a3a5c','#2d6a6a']},
+  {id:'poetry',ar:'شعر',en:'Poetry',colors:['#4a1a5c','#8b3a5c']},
+  {id:'history',ar:'تاريخ',en:'History',colors:['#5c3a1a','#8b6a2d']},
+  {id:'science',ar:'علوم',en:'Science',colors:['#1a5c3a','#2d6a8b']},
+  {id:'education',ar:'تعليم',en:'Education',colors:['#1a3a8b','#3a2d8b']},
+  {id:'business',ar:'أعمال',en:'Business',colors:['#2d2d3a','#4a5c6a']},
+  {id:'selfdev',ar:'تطوير ذاتي',en:'Self Development',colors:['#1a5c5c','#2d8b5c']},
+  {id:'children',ar:'أطفال',en:'Children',colors:['#8b5c1a','#c1596a']},
+  {id:'religious',ar:'ديني',en:'Religious',colors:['#1a5c2d','#6a8b1a']},
+  {id:'technology',ar:'تقنية',en:'Technology',colors:['#1a1a3a','#2d5c8b']},
+  {id:'other',ar:'أخرى',en:'Other',colors:['#3a3a4a','#5c4a5c']}
+];
+
+const state = {
+  books: [],
+  currentBookId: null,
+  currentChapterId: null,
+  view: 'dashboard',
+  lang: 'ar',
+  showAI: false,
+  aiGenerating: false,
+  aiContent: '',
+  aiStatus: '',
+  modal: null,
+  editingChapterTitle: null
+};
+
+let editorEl = null;
+let _uid = 0;
+function uid() { return 'id_' + (++_uid) + '_' + Date.now(); }
+
+/* ============================
+   i18n
+   ============================ */
+const L = {
+  ar: {
+    appName:'المنصة العربية الأولى',tagline:'لإنشاء وتصميم الكتب بأعلى المواصفات العالمية',
+    dashboard:'لوحة التحكم',myBooks:'كتبي',newBook:'كتاب جديد',
+    noBooks:'لم تقم بإنشاء أي كتاب بعد',createFirst:'ابدأ بإنشاء كتابك الأول',
+    bookTitle:'عنوان الكتاب',author:'المؤلف',genre:'التصنيف',bookLang:'لغة الكتاب',
+    format:'الشكل',print:'ورقي',digital:'إلكتروني',both:'كلاهما',
+    description:'وصف الكتاب',create:'إنشاء',cancel:'إلغاء',
+    chapters:'الفصول',addChapter:'إضافة فصل',newChapter:'فصل جديد',
+    editor:'المحرر',preview:'معاينة',exportBook:'تصدير',
+    aiAssistant:'المساعد الذكي',genOutline:'توليد المخطط',writeChapter:'كتابة فصل',
+    improveText:'تحسين النص',translateText:'ترجمة',summarize:'تلخيص',
+    genDesc:'توليد وصف',customPrompt:'أمر مخصص...',send:'إرسال',
+    copyToEditor:'نسخ إلى المحرر',generating:'جارٍ التوليد...',
+    words:'كلمة',chars:'حرف',totalBooks:'إجمالي الكتب',
+    totalChapters:'إجمالي الفصول',totalWords:'إجمالي الكلمات',
+    back:'رجوع',delete:'حذف',confirmDeleteBook:'هل أنت متأكد من حذف هذا الكتاب؟',
+    confirmDeleteCh:'هل أنت متأكد من حذف هذا الفصل؟',yes:'نعم',no:'لا',
+    toc:'فهرس المحتويات',downloadHtml:'تحميل HTML',downloadTxt:'تحميل نصي',
+    startWriting:'ابدأ الكتابة هنا...',chapterN:'الفصل',close:'إغلاق',
+    arabic:'العربية',english:'الإنجليزية',aiWaiting:'اختر أحد الإجراءات أو اكتب أمراً مخصصاً',
+    aiError:'حدث خطأ أثناء التوليد',bookCreated:'تم إنشاء الكتاب بنجاح',
+    selectChapter:'اختر فصلاً من القائمة للبدء بالكتابة',toggleSidebar:'القائمة الجانبية',
+    openAI:'المساعد الذكي',closeAI:'إغلاق المساعد',rename:'إعادة تسمية',
+    exportPreview:'معاينة وتصدير',bookInfo:'معلومات الكتاب',
+    placeholderTitle:'أدخل عنوان الكتاب',placeholderAuthor:'أدخل اسم المؤلف',
+    placeholderDesc:'أدخل وصفاً موجزاً للكتاب (اختياري)',
+    editBookInfo:'تعديل معلومات الكتاب',save:'حفظ',
+  },
+  en: {
+    appName:'The First Arabic Platform',tagline:'Create & design books with the highest global standards',
+    dashboard:'Dashboard',myBooks:'My Books',newBook:'New Book',
+    noBooks:'You haven\'t created any books yet',createFirst:'Start by creating your first book',
+    bookTitle:'Book Title',author:'Author',genre:'Genre',bookLang:'Book Language',
+    format:'Format',print:'Print',digital:'Digital',both:'Both',
+    description:'Description',create:'Create',cancel:'Cancel',
+    chapters:'Chapters',addChapter:'Add Chapter',newChapter:'New Chapter',
+    editor:'Editor',preview:'Preview',exportBook:'Export',
+    aiAssistant:'AI Assistant',genOutline:'Generate Outline',writeChapter:'Write Chapter',
+    improveText:'Improve Text',translateText:'Translate',summarize:'Summarize',
+    genDesc:'Generate Description',customPrompt:'Custom prompt...',send:'Send',
+    copyToEditor:'Copy to Editor',generating:'Generating...',
+    words:'words',chars:'chars',totalBooks:'Total Books',
+    totalChapters:'Total Chapters',totalWords:'Total Words',
+    back:'Back',delete:'Delete',confirmDeleteBook:'Are you sure you want to delete this book?',
+    confirmDeleteCh:'Are you sure you want to delete this chapter?',yes:'Yes',no:'No',
+    toc:'Table of Contents',downloadHtml:'Download HTML',downloadTxt:'Download Text',
+    startWriting:'Start writing here...',chapterN:'Chapter',close:'Close',
+    arabic:'Arabic',english:'English',aiWaiting:'Choose an action or enter a custom prompt',
+    aiError:'An error occurred during generation',bookCreated:'Book created successfully',
+    selectChapter:'Select a chapter from the list to start writing',toggleSidebar:'Toggle Sidebar',
+    openAI:'AI Assistant',closeAI:'Close AI',rename:'Rename',
+    exportPreview:'Preview & Export',bookInfo:'Book Info',
+    placeholderTitle:'Enter book title',placeholderAuthor:'Enter author name',
+    placeholderDesc:'Enter a short description (optional)',
+    editBookInfo:'Edit Book Info',save:'Save',
+  }
+};
+function t(k){return L[state.lang][k]||k}
+
+/* ============================
+   THEME
+   ============================ */
+function initTheme(){
+  if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+    document.documentElement.classList.add('dark');
+  }
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',e=>{
+    if(e.matches){document.documentElement.classList.add('dark')}
+    else{document.documentElement.classList.remove('dark')}
+  });
+}
+
+function toggleLang(){
+  state.lang = state.lang === 'ar' ? 'en' : 'ar';
+  document.documentElement.lang = state.lang;
+  document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+  render();
+}
+
+/* ============================
+   HELPERS
+   ============================ */
+function getBook(id){return state.books.find(b=>b.id===id)}
+function getChapter(book,cid){return book?book.chapters.find(c=>c.id===cid):null}
+function genreName(gid){
+  const g=GENRES.find(x=>x.id===gid);
+  return g?(state.lang==='ar'?g.ar:g.en):'';
+}
+function genreColors(gid){
+  const g=GENRES.find(x=>x.id===gid);
+  return g?g.colors:['#3a3a4a','#5c4a5c'];
+}
+function countWords(text){
+  if(!text)return 0;
+  const stripped=text.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+  return stripped?stripped.split(/\s+/).length:0;
+}
+function countChars(text){
+  if(!text)return 0;
+  return text.replace(/<[^>]*>/g,'').length;
+}
+function totalStats(){
+  let books=state.books.length,chapters=0,words=0;
+  state.books.forEach(b=>{
+    chapters+=b.chapters.length;
+    b.chapters.forEach(c=>{words+=countWords(c.content)});
+  });
+  return{books,chapters,words};
+}
+function escapeHtml(s){
+  const div=document.createElement('div');
+  div.textContent=s;
+  return div.innerHTML;
+}
+
+/* ============================
+   BOOK / CHAPTER OPERATIONS
+   ============================ */
+function createBook(data){
+  const book={
+    id:uid(),title:data.title,author:data.author,genre:data.genre,
+    bookLang:data.bookLang,format:data.format,description:data.description,
+    chapters:[],createdAt:Date.now()
+  };
+  state.books.unshift(book);
+  state.currentBookId=book.id;
+  state.modal=null;
+  addChapter(book.id);
+  state.view='editor';
+  render();
+}
+function deleteBook(id){
+  state.books=state.books.filter(b=>b.id!==id);
+  if(state.currentBookId===id){state.currentBookId=null;state.currentChapterId=null;state.view='dashboard'}
+  render();
+}
+function addChapter(bookId){
+  const book=getBook(bookId);
+  if(!book)return;
+  const num=book.chapters.length+1;
+  const ch={
+    id:uid(),
+    title:(state.lang==='ar'?'الفصل ':'Chapter ')+num,
+    content:''
+  };
+  book.chapters.push(ch);
+  state.currentChapterId=ch.id;
+  render();
+}
+function deleteChapter(bookId,chId){
+  const book=getBook(bookId);
+  if(!book)return;
+  book.chapters=book.chapters.filter(c=>c.id!==chId);
+  if(state.currentChapterId===chId){
+    state.currentChapterId=book.chapters.length?book.chapters[0].id:null;
+  }
+  render();
+}
+function saveEditorContent(){
+  if(!editorEl)return;
+  const book=getBook(state.currentBookId);
+  const ch=getChapter(book,state.currentChapterId);
+  if(ch)ch.content=editorEl.innerHTML;
+}
+
+/* ============================
+   CONFIRM DIALOG
+   ============================ */
+function showConfirm(msg,onYes){
+  const ov=document.createElement('div');
+  ov.className='confirm-overlay';
+  ov.innerHTML=`<div class="confirm-box">
+    <p>${escapeHtml(msg)}</p>
+    <div class="confirm-actions">
+      <button class="btn-secondary" data-action="no">${t('no')}</button>
+      <button class="btn-danger" data-action="yes">${t('yes')}</button>
+    </div>
+  </div>`;
+  document.body.appendChild(ov);
+  ov.addEventListener('click',e=>{
+    const act=e.target.dataset.action;
+    if(act==='yes'){ov.remove();onYes()}
+    else if(act==='no'||e.target===ov){ov.remove()}
+  });
+}
+
+/* ============================
+   RENDER
+   ============================ */
+function render(){
+  const app=document.getElementById('app');
+  saveEditorContent();
+  editorEl=null;
+
+  let html=renderHeader();
+  html+='<div class="main">';
+  if(state.view==='dashboard'){
+    html+=renderDashboard();
+  } else if(state.view==='editor'){
+    html+=renderEditorView();
+  }
+  html+='</div>';
+
+  if(state.modal==='newBook')html+=renderNewBookModal();
+  if(state.modal==='editBook')html+=renderEditBookModal();
+
+  app.innerHTML=html;
+  if(state.view==='editor')initEditorArea();
+}
+
+/* ===== HEADER ===== */
+function renderHeader(){
+  const isEditor=state.view==='editor';
+  return `<div class="header">
+    <div class="header-logo" onclick="goHome()">
+      <div class="logo-icon">ك</div>
+      <h1>${t('appName')}</h1>
+    </div>
+    <div class="header-actions">
+      ${isEditor?`<button class="header-btn" onclick="toggleSidebar()" title="${t('toggleSidebar')}"><i class="fas fa-bars"></i></button>`:''}
+      ${isEditor?`<button class="header-btn${state.showAI?' active':''}" onclick="toggleAI()" title="${t('openAI')}"><i class="fas fa-wand-magic-sparkles"></i></button>`:''}
+      <button class="header-btn" onclick="toggleLang()" title="${state.lang==='ar'?'English':'عربي'}">
+        <i class="fas fa-language"></i>
+      </button>
+    </div>
+  </div>`;
+}
+
+/* ===== DASHBOARD ===== */
+function renderDashboard(){
+  const stats=totalStats();
+  let html=`<div class="dashboard">
+    <div class="dash-header">
+      <h2>${t('myBooks')}</h2>
+      <p>${t('tagline')}</p>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-book"></i></div><div><div class="stat-value">${stats.books}</div><div class="stat-label">${t('totalBooks')}</div></div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-file-lines"></i></div><div><div class="stat-value">${stats.chapters}</div><div class="stat-label">${t('totalChapters')}</div></div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-pen-nib"></i></div><div><div class="stat-value">${stats.words.toLocaleString()}</div><div class="stat-label">${t('totalWords')}</div></div></div>
+    </div>`;
+  if(state.books.length===0){
+    html+=`<div class="empty-state">
+      <div class="empty-icon"><i class="fas fa-book-open"></i></div>
+      <h3>${t('noBooks')}</h3>
+      <p>${t('createFirst')}</p>
+      <button class="btn-primary" onclick="openNewBookModal()"><i class="fas fa-plus"></i> ${t('newBook')}</button>
+    </div>`;
+  } else {
+    html+='<div class="books-grid">';
+    html+=`<div class="book-card new-book-card" onclick="openNewBookModal()">
+      <i class="fas fa-plus"></i><span>${t('newBook')}</span>
+    </div>`;
+    state.books.forEach(b=>{
+      const colors=genreColors(b.genre);
+      const chCount=b.chapters.length;
+      const wCount=b.chapters.reduce((s,c)=>s+countWords(c.content),0);
+      html+=`<div class="book-card" onclick="openBook('${b.id}')">
+        <div class="book-cover" style="background:linear-gradient(135deg,${colors[0]},${colors[1]})">
+          <div class="book-cover-deco"></div>
+          <div class="book-cover-title">${escapeHtml(b.title)}</div>
+          <div class="book-cover-author">${escapeHtml(b.author)}</div>
+        </div>
+        <div class="book-meta">
+          <h3>${escapeHtml(b.title)}</h3>
+          <p>${escapeHtml(b.author)}</p>
+          <div class="book-meta-row">
+            <span class="book-badge">${genreName(b.genre)}</span>
+            <span style="font-size:.78rem;color:var(--text-2)">${chCount} ${t('chapters')} · ${wCount.toLocaleString()} ${t('words')}</span>
+          </div>
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  }
+  html+='</div>';
+  return html;
+}
+
+/* ===== NEW BOOK MODAL ===== */
+function renderNewBookModal(){
+  let genreOpts=GENRES.map(g=>`<option value="${g.id}">${state.lang==='ar'?g.ar:g.en}</option>`).join('');
+  return `<div class="modal-overlay" onclick="closeModalBg(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fas fa-book-medical" style="color:var(--accent);margin-inline-end:8px"></i>${t('newBook')}</h3>
+        <button class="btn-icon" onclick="closeModal()"><i class="fas fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>${t('bookTitle')} *</label>
+          <input id="nb-title" placeholder="${t('placeholderTitle')}" autofocus>
+        </div>
+        <div class="form-group">
+          <label>${t('author')} *</label>
+          <input id="nb-author" placeholder="${t('placeholderAuthor')}">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>${t('genre')}</label>
+            <select id="nb-genre">${genreOpts}</select>
+          </div>
+          <div class="form-group">
+            <label>${t('bookLang')}</label>
+            <select id="nb-lang">
+              <option value="ar">${t('arabic')}</option>
+              <option value="en">${t('english')}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>${t('format')}</label>
+          <div class="radio-group" id="nb-format">
+            <div class="radio-option selected" data-val="both">${t('both')}</div>
+            <div class="radio-option" data-val="print">${t('print')}</div>
+            <div class="radio-option" data-val="digital">${t('digital')}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>${t('description')}</label>
+          <textarea id="nb-desc" placeholder="${t('placeholderDesc')}"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal()">${t('cancel')}</button>
+        <button class="btn-primary" onclick="submitNewBook()"><i class="fas fa-plus"></i> ${t('create')}</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ===== EDIT BOOK MODAL ===== */
+function renderEditBookModal(){
+  const book=getBook(state.currentBookId);
+  if(!book)return '';
+  let genreOpts=GENRES.map(g=>`<option value="${g.id}"${g.id===book.genre?' selected':''}>${state.lang==='ar'?g.ar:g.en}</option>`).join('');
+  return `<div class="modal-overlay" onclick="closeModalBg(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fas fa-pen-to-square" style="color:var(--accent);margin-inline-end:8px"></i>${t('editBookInfo')}</h3>
+        <button class="btn-icon" onclick="closeModal()"><i class="fas fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>${t('bookTitle')}</label>
+          <input id="eb-title" value="${escapeHtml(book.title)}">
+        </div>
+        <div class="form-group">
+          <label>${t('author')}</label>
+          <input id="eb-author" value="${escapeHtml(book.author)}">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>${t('genre')}</label>
+            <select id="eb-genre">${genreOpts}</select>
+          </div>
+          <div class="form-group">
+            <label>${t('bookLang')}</label>
+            <select id="eb-lang">
+              <option value="ar"${book.bookLang==='ar'?' selected':''}>${t('arabic')}</option>
+              <option value="en"${book.bookLang==='en'?' selected':''}>${t('english')}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>${t('description')}</label>
+          <textarea id="eb-desc">${escapeHtml(book.description||'')}</textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal()">${t('cancel')}</button>
+        <button class="btn-primary" onclick="submitEditBook()"><i class="fas fa-check"></i> ${t('save')}</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ===== EDITOR VIEW ===== */
+function renderEditorView(){
+  const book=getBook(state.currentBookId);
+  if(!book)return '<div class="dashboard"><p>Book not found</p></div>';
+  const ch=getChapter(book,state.currentChapterId);
+  const sidebarClass=document.querySelector('.editor-sidebar.collapsed')?'collapsed':'';
+
+  let html=`<div class="editor-view">`;
+  /* Sidebar */
+  html+=`<div class="editor-sidebar ${sidebarClass}">
+    <div class="sidebar-header">
+      <h3><i class="fas fa-list" style="margin-inline-end:6px;color:var(--accent)"></i>${t('chapters')}</h3>
+      <button class="btn-icon" onclick="openEditBookModal()" title="${t('editBookInfo')}"><i class="fas fa-cog"></i></button>
+    </div>
+    <div class="chapter-list">`;
+  book.chapters.forEach((c,i)=>{
+    const isActive=c.id===state.currentChapterId;
+    if(state.editingChapterTitle===c.id){
+      html+=`<div class="chapter-item active">
+        <span class="ch-num">${i+1}</span>
+        <div class="inline-edit">
+          <input id="ch-rename-input" value="${escapeHtml(c.title)}" onkeydown="chRenameKey(event,'${c.id}')" autofocus>
+          <button class="btn-icon" onclick="confirmRenameChapter('${c.id}')"><i class="fas fa-check" style="color:var(--success)"></i></button>
+        </div>
+      </div>`;
+    } else {
+      html+=`<div class="chapter-item${isActive?' active':''}" onclick="selectChapter('${c.id}')">
+        <span class="ch-num">${i+1}</span>
+        <span class="ch-title">${escapeHtml(c.title)}</span>
+        <button class="ch-del" onclick="event.stopPropagation();startRenameChapter('${c.id}')" title="${t('rename')}"><i class="fas fa-pen"></i></button>
+        <button class="ch-del" onclick="event.stopPropagation();confirmDeleteChapter('${c.id}')" title="${t('delete')}"><i class="fas fa-trash"></i></button>
+      </div>`;
+    }
+  });
+  html+=`</div>
+    <button class="add-chapter-btn" onclick="addChapter('${book.id}')"><i class="fas fa-plus"></i> ${t('addChapter')}</button>
+  </div>`;
+
+  /* Editor Main */
+  html+=`<div class="editor-main">
+    <div class="editor-topbar">
+      <button class="btn-icon" onclick="goHome()" title="${t('back')}"><i class="fas fa-arrow-${state.lang==='ar'?'right':'left'}"></i></button>
+      <input class="book-title-edit" value="${escapeHtml(book.title)}" onchange="updateBookTitle(this.value)" />
+      <div class="editor-topbar-actions">
+        <button class="btn-secondary btn-sm" onclick="openPreview()"><i class="fas fa-eye"></i> ${t('preview')}</button>
+        <button class="btn-primary btn-sm" onclick="exportBookHtml()"><i class="fas fa-download"></i> ${t('exportBook')}</button>
+      </div>
+    </div>`;
+
+  if(ch){
+    html+=renderToolbar();
+    html+=`<div class="editor-content">
+      <div class="editor-area" id="editor-area" contenteditable="true"
+        dir="${book.bookLang==='ar'?'rtl':'ltr'}"
+        data-placeholder="${t('startWriting')}"
+        oninput="onEditorInput()">${ch.content}</div>
+    </div>
+    <div class="editor-footer">
+      <span>${escapeHtml(ch.title)}</span>
+      <span>${countWords(ch.content)} ${t('words')} · ${countChars(ch.content)} ${t('chars')}</span>
+    </div>`;
+  } else {
+    html+=`<div class="editor-content">
+      <div class="empty-state" style="padding-top:120px">
+        <div class="empty-icon"><i class="fas fa-pen-fancy"></i></div>
+        <h3>${t('selectChapter')}</h3>
+        <button class="btn-primary" onclick="addChapter('${book.id}')"><i class="fas fa-plus"></i> ${t('addChapter')}</button>
+      </div>
+    </div>`;
+  }
+
+  html+=`</div>`;
+
+  /* AI Panel */
+  html+=renderAIPanel(book);
+  html+=`</div>`;
+  return html;
+}
+
+/* ===== TOOLBAR ===== */
+function renderToolbar(){
+  return `<div class="toolbar">
+    <button onclick="execFmt('bold')" title="Bold"><i class="fas fa-bold"></i></button>
+    <button onclick="execFmt('italic')" title="Italic"><i class="fas fa-italic"></i></button>
+    <button onclick="execFmt('underline')" title="Underline"><i class="fas fa-underline"></i></button>
+    <button onclick="execFmt('strikeThrough')" title="Strikethrough"><i class="fas fa-strikethrough"></i></button>
+    <div class="toolbar-sep"></div>
+    <button onclick="execFmt('formatBlock','H1')" title="H1"><b>H1</b></button>
+    <button onclick="execFmt('formatBlock','H2')" title="H2"><b>H2</b></button>
+    <button onclick="execFmt('formatBlock','H3')" title="H3"><b>H3</b></button>
+    <button onclick="execFmt('formatBlock','P')" title="Paragraph"><i class="fas fa-paragraph"></i></button>
+    <div class="toolbar-sep"></div>
+    <button onclick="execFmt('insertUnorderedList')" title="Bullets"><i class="fas fa-list-ul"></i></button>
+    <button onclick="execFmt('insertOrderedList')" title="Numbered"><i class="fas fa-list-ol"></i></button>
+    <button onclick="execFmt('formatBlock','BLOCKQUOTE')" title="Quote"><i class="fas fa-quote-right"></i></button>
+    <div class="toolbar-sep"></div>
+    <button onclick="execFmt('justifyRight')" title="Align Right"><i class="fas fa-align-right"></i></button>
+    <button onclick="execFmt('justifyCenter')" title="Center"><i class="fas fa-align-center"></i></button>
+    <button onclick="execFmt('justifyLeft')" title="Align Left"><i class="fas fa-align-left"></i></button>
+    <button onclick="execFmt('justifyFull')" title="Justify"><i class="fas fa-align-justify"></i></button>
+    <div class="toolbar-sep"></div>
+    <button onclick="execFmt('removeFormat')" title="Clear"><i class="fas fa-eraser"></i></button>
+    <button onclick="execFmt('undo')" title="Undo"><i class="fas fa-rotate-left"></i></button>
+    <button onclick="execFmt('redo')" title="Redo"><i class="fas fa-rotate-right"></i></button>
+  </div>`;
+}
+
+/* ===== AI PANEL ===== */
+function renderAIPanel(book){
+  const hidden=!state.showAI?'hidden':'';
+  let responseHtml='';
+  if(state.aiGenerating){
+    responseHtml=`<div class="ai-loading">
+      <i class="fas fa-spinner" style="animation:spin 1s linear infinite"></i>
+      <span>${t('generating')}</span>
+      <span class="dots"><span>.</span><span>.</span><span>.</span></span>
+    </div>`;
+    if(state.aiContent){
+      responseHtml+=`<div class="ai-response-content">${escapeHtml(state.aiContent)}</div>`;
+    }
+  } else if(state.aiContent){
+    responseHtml=`<div class="ai-response-content">${escapeHtml(state.aiContent)}</div>
+    <div class="ai-response-actions">
+      <button class="btn-primary btn-sm" onclick="copyAIToEditor()"><i class="fas fa-paste"></i> ${t('copyToEditor')}</button>
+      <button class="btn-secondary btn-sm" onclick="clearAI()"><i class="fas fa-xmark"></i> ${t('close')}</button>
+    </div>`;
+  } else if(state.aiStatus==='error'){
+    responseHtml=`<div class="ai-response-content" style="color:var(--error)">${t('aiError')}</div>`;
+  } else {
+    responseHtml=`<div class="ai-response-content empty">${t('aiWaiting')}</div>`;
+  }
+
+  return `<div class="ai-panel ${hidden}">
+    <div class="ai-header">
+      <h3><i class="fas fa-wand-magic-sparkles"></i> ${t('aiAssistant')}</h3>
+      <button class="btn-icon" onclick="toggleAI()"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="ai-actions">
+      <button class="ai-action-btn" onclick="aiAction('outline')"><i class="fas fa-sitemap"></i>${t('genOutline')}</button>
+      <button class="ai-action-btn" onclick="aiAction('chapter')"><i class="fas fa-file-pen"></i>${t('writeChapter')}</button>
+      <button class="ai-action-btn" onclick="aiAction('improve')"><i class="fas fa-sparkles"></i>${t('improveText')}</button>
+      <button class="ai-action-btn" onclick="aiAction('translate')"><i class="fas fa-language"></i>${t('translateText')}</button>
+      <button class="ai-action-btn" onclick="aiAction('summarize')"><i class="fas fa-compress"></i>${t('summarize')}</button>
+      <button class="ai-action-btn" onclick="aiAction('description')"><i class="fas fa-quote-left"></i>${t('genDesc')}</button>
+    </div>
+    <div class="ai-custom">
+      <textarea id="ai-custom-prompt" placeholder="${t('customPrompt')}"></textarea>
+      <div class="ai-send-row">
+        <button class="btn-primary btn-sm" onclick="aiAction('custom')" style="flex:1" ${state.aiGenerating?'disabled':''}><i class="fas fa-paper-plane"></i> ${t('send')}</button>
+      </div>
+    </div>
+    <div class="ai-response">${responseHtml}</div>
+  </div>`;
+}
+
+/* ============================
+   EDITOR SETUP
+   ============================ */
+function initEditorArea(){
+  editorEl=document.getElementById('editor-area');
+  if(editorEl){
+    editorEl.addEventListener('paste',e=>{
+      e.preventDefault();
+      const text=e.clipboardData.getData('text/plain');
+      document.execCommand('insertText',false,text);
+    });
+  }
+  /* Focus rename input if editing */
+  const renameInput=document.getElementById('ch-rename-input');
+  if(renameInput){renameInput.focus();renameInput.select()}
+}
+
+function execFmt(cmd,val){
+  if(!editorEl)return;
+  editorEl.focus();
+  if(cmd==='formatBlock'){
+    document.execCommand('formatBlock',false,'<'+val+'>');
+  } else {
+    document.execCommand(cmd,false,val||null);
+  }
+}
+
+function onEditorInput(){
+  if(!editorEl)return;
+  const book=getBook(state.currentBookId);
+  const ch=getChapter(book,state.currentChapterId);
+  if(ch){
+    ch.content=editorEl.innerHTML;
+    const footer=document.querySelector('.editor-footer');
+    if(footer){
+      footer.lastElementChild.textContent=`${countWords(ch.content)} ${t('words')} · ${countChars(ch.content)} ${t('chars')}`;
+    }
+  }
+}
+
+/* ============================
+   NAVIGATION & EVENTS
+   ============================ */
+function goHome(){
+  saveEditorContent();
+  state.view='dashboard';
+  state.currentBookId=null;
+  state.currentChapterId=null;
+  state.showAI=false;
+  state.aiContent='';
+  state.aiStatus='';
+  state.editingChapterTitle=null;
+  render();
+}
+function openBook(id){
+  const book=getBook(id);
+  if(!book)return;
+  state.currentBookId=id;
+  state.currentChapterId=book.chapters.length?book.chapters[0].id:null;
+  state.view='editor';
+  state.showAI=false;
+  state.aiContent='';
+  state.editingChapterTitle=null;
+  render();
+}
+function selectChapter(cid){
+  saveEditorContent();
+  state.currentChapterId=cid;
+  state.editingChapterTitle=null;
+  render();
+}
+function toggleSidebar(){
+  const sb=document.querySelector('.editor-sidebar');
+  if(sb)sb.classList.toggle('collapsed');
+}
+function toggleAI(){
+  state.showAI=!state.showAI;
+  render();
+}
+function openNewBookModal(){state.modal='newBook';render()}
+function openEditBookModal(){state.modal='editBook';render()}
+function closeModal(){state.modal=null;render()}
+function closeModalBg(e){if(e.target.classList.contains('modal-overlay'))closeModal()}
+
+function submitNewBook(){
+  const title=document.getElementById('nb-title').value.trim();
+  const author=document.getElementById('nb-author').value.trim();
+  if(!title||!author)return;
+  const genre=document.getElementById('nb-genre').value;
+  const bookLang=document.getElementById('nb-lang').value;
+  const desc=document.getElementById('nb-desc').value.trim();
+  let format='both';
+  const selected=document.querySelector('#nb-format .radio-option.selected');
+  if(selected)format=selected.dataset.val;
+  createBook({title,author,genre,bookLang,format,description:desc});
+}
+function submitEditBook(){
+  const book=getBook(state.currentBookId);
+  if(!book)return;
+  book.title=document.getElementById('eb-title').value.trim()||book.title;
+  book.author=document.getElementById('eb-author').value.trim()||book.author;
+  book.genre=document.getElementById('eb-genre').value;
+  book.bookLang=document.getElementById('eb-lang').value;
+  book.description=document.getElementById('eb-desc').value.trim();
+  state.modal=null;
+  render();
+}
+
+function updateBookTitle(val){
+  const book=getBook(state.currentBookId);
+  if(book&&val.trim())book.title=val.trim();
+}
+
+/* Radio group */
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('radio-option')){
+    const group=e.target.parentElement;
+    group.querySelectorAll('.radio-option').forEach(o=>o.classList.remove('selected'));
+    e.target.classList.add('selected');
+  }
+});
+
+/* Chapter rename */
+function startRenameChapter(cid){
+  saveEditorContent();
+  state.editingChapterTitle=cid;
+  render();
+}
+function confirmRenameChapter(cid){
+  const input=document.getElementById('ch-rename-input');
+  if(!input)return;
+  const book=getBook(state.currentBookId);
+  const ch=getChapter(book,cid);
+  if(ch&&input.value.trim())ch.title=input.value.trim();
+  state.editingChapterTitle=null;
+  render();
+}
+function chRenameKey(e,cid){
+  if(e.key==='Enter')confirmRenameChapter(cid);
+  if(e.key==='Escape'){state.editingChapterTitle=null;render()}
+}
+
+function confirmDeleteChapter(cid){
+  showConfirm(t('confirmDeleteCh'),()=>deleteChapter(state.currentBookId,cid));
+}
+function confirmDeleteBook(bid){
+  showConfirm(t('confirmDeleteBook'),()=>deleteBook(bid));
+}
+
+/* ============================
+   AI INTEGRATION
+   ============================ */
+let _aiHandlerRegistered=false;
+function ensureAIHandler(){
+  if(_aiHandlerRegistered)return;
+  if(!window.Poe)return;
+  window.Poe.registerHandler('book-ai-handler',(result)=>{
+    const msg=result.responses[0];
+    if(!msg)return;
+    if(msg.status==='error'){
+      state.aiGenerating=false;
+      state.aiStatus='error';
+      state.aiContent=msg.statusText||t('aiError');
+      renderAIPanelInPlace();
+    } else if(msg.status==='incomplete'){
+      state.aiContent=msg.content;
+      renderAIPanelInPlace();
+    } else if(msg.status==='complete'){
+      state.aiGenerating=false;
+      state.aiContent=msg.content;
+      state.aiStatus='complete';
+      renderAIPanelInPlace();
+    }
+  });
+  _aiHandlerRegistered=true;
+}
+
+function renderAIPanelInPlace(){
+  const panel=document.querySelector('.ai-response');
+  if(!panel)return;
+  let responseHtml='';
+  if(state.aiGenerating){
+    responseHtml=`<div class="ai-loading">
+      <i class="fas fa-spinner" style="animation:spin 1s linear infinite"></i>
+      <span>${t('generating')}</span>
+    </div>`;
+    if(state.aiContent){
+      responseHtml+=`<div class="ai-response-content">${escapeHtml(state.aiContent)}</div>`;
+    }
+  } else if(state.aiContent){
+    responseHtml=`<div class="ai-response-content">${escapeHtml(state.aiContent)}</div>
+    <div class="ai-response-actions">
+      <button class="btn-primary btn-sm" onclick="copyAIToEditor()"><i class="fas fa-paste"></i> ${t('copyToEditor')}</button>
+      <button class="btn-secondary btn-sm" onclick="clearAI()"><i class="fas fa-xmark"></i> ${t('close')}</button>
+    </div>`;
+  } else if(state.aiStatus==='error'){
+    responseHtml=`<div class="ai-response-content" style="color:var(--error)">${t('aiError')}</div>`;
+  }
+  panel.innerHTML=responseHtml;
+  panel.scrollTop=panel.scrollHeight;
+}
+
+async function aiAction(action){
+  if(state.aiGenerating)return;
+  ensureAIHandler();
+  if(!window.Poe){
+    state.aiContent='Poe API is not available in this environment.';
+    renderAIPanelInPlace();
+    return;
+  }
+  const book=getBook(state.currentBookId);
+  if(!book)return;
+  const ch=getChapter(book,state.currentChapterId);
+  const bookLang=book.bookLang==='ar'?'Arabic':'English';
+  const editorContent=ch?ch.content.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim():'';
+
+  let prompt='';
+  switch(action){
+    case 'outline':
+      prompt=`You are a professional book author and editor. Generate a detailed chapter outline for a ${bookLang} book titled "${book.title}" by ${book.author}. Genre: ${genreName(book.genre)}. ${book.description?'Description: '+book.description:''}
+Please provide a structured outline with chapter titles and brief descriptions for each chapter. Write the outline in ${bookLang}. Output plain text only.`;
+      break;
+    case 'chapter':
+      prompt=`You are a professional ${bookLang} book author. Write a complete chapter for the book "${book.title}" by ${book.author} (Genre: ${genreName(book.genre)}).
+${ch?'Chapter title: "'+ch.title+'".':''}
+${editorContent?'Existing content to continue from or expand:\n'+editorContent.slice(0,2000):'Write the opening of this chapter.'}
+Write high-quality, engaging content in ${bookLang}. The writing should be professional and publication-ready. Output plain text only.`;
+      break;
+    case 'improve':
+      if(!editorContent){state.aiContent=state.lang==='ar'?'لا يوجد نص لتحسينه':'No text to improve';renderAIPanelInPlace();return}
+      prompt=`You are a professional editor. Improve the following ${bookLang} text, making it more engaging, polished, and publication-ready while preserving the author's voice and intent:
+
+"${editorContent.slice(0,3000)}"
+
+Provide the improved version in ${bookLang}. Output only the improved text, nothing else.`;
+      break;
+    case 'translate':
+      if(!editorContent){state.aiContent=state.lang==='ar'?'لا يوجد نص لترجمته':'No text to translate';renderAIPanelInPlace();return}
+      {const target=book.bookLang==='ar'?'English':'Arabic';
+      prompt=`Translate the following text to ${target}. Maintain the literary quality and style. Output only the translation:
+
+"${editorContent.slice(0,3000)}"`;}
+      break;
+    case 'summarize':
+      if(!editorContent){state.aiContent=state.lang==='ar'?'لا يوجد نص لتلخيصه':'No text to summarize';renderAIPanelInPlace();return}
+      prompt=`Summarize the following ${bookLang} text concisely, capturing the key points and themes. Write the summary in ${bookLang}:
+
+"${editorContent.slice(0,3000)}"`;
+      break;
+    case 'description':
+      prompt=`Write a compelling book description/blurb for a ${bookLang} book titled "${book.title}" by ${book.author}. Genre: ${genreName(book.genre)}. ${book.description?'Brief: '+book.description:''}
+${book.chapters.length?'Chapters: '+book.chapters.map(c=>c.title).join(', '):''}
+Write an engaging, marketing-ready description in ${bookLang} that would appear on the back cover. Output plain text only.`;
+      break;
+    case 'custom':
+      {const customInput=document.getElementById('ai-custom-prompt');
+      if(!customInput||!customInput.value.trim())return;
+      const userPrompt=customInput.value.trim();
+      prompt=`Context: You are helping with a ${bookLang} book titled "${book.title}" by ${book.author} (Genre: ${genreName(book.genre)}).
+${ch?'Current chapter: "'+ch.title+'"':''}
+${editorContent?'Current text (excerpt):\n'+editorContent.slice(0,1500):''}
+
+User request: ${userPrompt}
+
+Respond in ${bookLang} unless the user specifies otherwise.`;
+      customInput.value='';}
+      break;
+    default:return;
+  }
+
+  state.aiGenerating=true;
+  state.aiContent='';
+  state.aiStatus='';
+  renderAIPanelInPlace();
+
+  try{
+    await window.Poe.sendUserMessage('@Claude-Sonnet-4.5 '+prompt,{
+      handler:'book-ai-handler',
+      stream:true,
+      openChat:false,
+      parameters:{}
+    });
+  }catch(err){
+    state.aiGenerating=false;
+    state.aiStatus='error';
+    state.aiContent=err.message||t('aiError');
+    renderAIPanelInPlace();
+  }
+}
+
+function copyAIToEditor(){
+  if(!state.aiContent||!editorEl)return;
+  editorEl.focus();
+  /* Insert at cursor or append */
+  const text=state.aiContent;
+  const paragraphs=text.split('\n').filter(Boolean).map(p=>'<p>'+escapeHtml(p)+'</p>').join('');
+  document.execCommand('insertHTML',false,paragraphs);
+  onEditorInput();
+  state.aiContent='';
+  renderAIPanelInPlace();
+}
+
+function clearAI(){
+  state.aiContent='';
+  state.aiStatus='';
+  renderAIPanelInPlace();
+}
+
+/* ============================
+   PREVIEW
+   ============================ */
+function openPreview(){
+  saveEditorContent();
+  const book=getBook(state.currentBookId);
+  if(!book)return;
+  const colors=genreColors(book.genre);
+  const dir=book.bookLang==='ar'?'rtl':'ltr';
+
+  let html=`<div class="preview-overlay" dir="${dir}">
+    <div class="preview-topbar">
+      <h3 style="font-family:var(--font-ar-display);font-size:1.1rem">${escapeHtml(book.title)}</h3>
+      <div style="display:flex;gap:8px">
+        <button class="btn-primary btn-sm" onclick="exportBookHtml()"><i class="fas fa-download"></i> ${t('exportBook')}</button>
+        <button class="btn-secondary btn-sm" onclick="closePreview()"><i class="fas fa-xmark"></i> ${t('close')}</button>
+      </div>
+    </div>
+    <div class="preview-body">
+      <div class="preview-page">
+        <div class="preview-cover" style="background:linear-gradient(135deg,${colors[0]},${colors[1]})">
+          <h1>${escapeHtml(book.title)}</h1>
+          <p>${escapeHtml(book.author)}</p>
+        </div>
+        ${book.description?'<p style="text-align:center;color:var(--text-1);margin-bottom:40px;font-style:italic">'+escapeHtml(book.description)+'</p>':''}
+        <div class="preview-toc">
+          <h2>${t('toc')}</h2>
+          ${book.chapters.map((c,i)=>`<div class="toc-item"><span>${escapeHtml(c.title)}</span><span>${i+1}</span></div>`).join('')}
+        </div>
+        ${book.chapters.map(c=>`<div class="preview-chapter">
+          <h2>${escapeHtml(c.title)}</h2>
+          <div class="preview-chapter-content">${c.content||'<p style="color:var(--text-2);font-style:italic">(${state.lang==="ar"?"لا يوجد محتوى بعد":"No content yet"})</p>'}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+
+  const container=document.createElement('div');
+  container.id='preview-container';
+  container.innerHTML=html;
+  document.body.appendChild(container);
+}
+function closePreview(){
+  const c=document.getElementById('preview-container');
+  if(c)c.remove();
+}
+
+/* ============================
+   EXPORT
+   ============================ */
+function exportBookHtml(){
+  saveEditorContent();
+  const book=getBook(state.currentBookId);
+  if(!book)return;
+  const colors=genreColors(book.genre);
+  const dir=book.bookLang==='ar'?'rtl':'ltr';
+  const fontFam=book.bookLang==='ar'?"'Aref Ruqaa','Tajawal',serif":"'Cormorant Garamond','Crimson Pro',serif";
+
+  let doc=`<!DOCTYPE html>
+<html lang="${book.bookLang}" dir="${dir}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>${escapeHtml(book.title)}</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Crimson+Pro:wght@400;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:${fontFam};line-height:2;color:#1a1510;background:#faf7f2;padding:40px 20px}
+.page{max-width:700px;margin:0 auto 60px;background:#fff;border-radius:12px;padding:60px 50px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.cover{text-align:center;padding:80px 40px;border-radius:12px;background:linear-gradient(135deg,${colors[0]},${colors[1]});margin-bottom:40px}
+.cover h1{font-size:2.4rem;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.3);margin-bottom:12px}
+.cover p{color:rgba(255,255,255,.9);font-size:1.1rem}
+h2{font-size:1.5rem;color:${colors[0]};margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid ${colors[0]}20}
+h3{font-size:1.2rem;margin:16px 0 8px}
+p{margin-bottom:12px}
+.toc-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dotted #e0d8cc}
+blockquote{border-${dir==='rtl'?'right':'left'}:3px solid ${colors[0]};padding-${dir==='rtl'?'right':'left'}:16px;color:#5c5347;font-style:italic;margin:12px 0}
+@media print{body{background:#fff;padding:0}.page{box-shadow:none;border-radius:0;padding:40px}.cover{page-break-after:always}}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="cover">
+<h1>${escapeHtml(book.title)}</h1>
+<p>${escapeHtml(book.author)}</p>
+</div>
+${book.description?'<p style="text-align:center;color:#5c5347;font-style:italic;margin-bottom:40px">'+escapeHtml(book.description)+'</p>':''}
+<h2>${book.bookLang==='ar'?'فهرس المحتويات':'Table of Contents'}</h2>
+${book.chapters.map((c,i)=>'<div class="toc-item"><span>'+escapeHtml(c.title)+'</span><span>'+(i+1)+'</span></div>').join('')}
+</div>
+${book.chapters.map(c=>'<div class="page"><h2>'+escapeHtml(c.title)+'</h2>'+(c.content||'<p style="color:#8c8479"><em>...</em></p>')+'</div>').join('')}
+</body></html>`;
+
+  const blob=new Blob([doc],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=(book.title||'book')+'.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ============================
+   INIT
+   ============================ */
+function init(){
+  initTheme();
+  render();
+  /* Add demo book for better first impression */
+  if(state.books.length===0){
+    addDemoBook();
+  }
+}
+
+function addDemoBook(){
+  const isAr=state.lang==='ar';
+  const book={
+    id:uid(),
+    title:isAr?'رحلة عبر الزمن':'Journey Through Time',
+    author:isAr?'أحمد المنصور':'Ahmed Al-Mansour',
+    genre:'novel',bookLang:isAr?'ar':'en',format:'both',
+    description:isAr?'رواية تأخذنا في رحلة استثنائية عبر حقب تاريخية مختلفة':'A novel that takes us on an extraordinary journey through different historical eras',
+    chapters:[
+      {id:uid(),title:isAr?'البداية':'The Beginning',content:isAr?'<p>في صباح يوم ربيعي هادئ، استيقظ سليمان على صوت غريب يأتي من الغرفة المجاورة. كان الصوت أشبه بهمهمة قديمة، كأنها تردد صدى من زمن بعيد.</p><p>نهض من فراشه ببطء، وتوجه نحو مصدر الصوت بخطوات حذرة. عندما فتح الباب، وجد أمامه كتاباً قديماً مفتوحاً على طاولة لم تكن موجودة من قبل.</p>':'<p>On a quiet spring morning, Suleiman woke to a strange sound coming from the adjacent room. The sound resembled an ancient murmur, like an echo from a distant time.</p><p>He rose slowly from his bed and moved toward the source of the sound with cautious steps. When he opened the door, he found an old book open on a table that had not been there before.</p>'},
+      {id:uid(),title:isAr?'الاكتشاف':'The Discovery',content:''},
+      {id:uid(),title:isAr?'عبر البوابة':'Through the Gate',content:''}
+    ],
+    createdAt:Date.now()
+  };
+  state.books.push(book);
+  render();
+}
+
+init();
+</script>
+
+
+
+</body></html>

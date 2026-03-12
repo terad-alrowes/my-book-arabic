@@ -1,0 +1,7 @@
+16 طلب جاهز:
+├── Health Check
+├── 8 requests للقراءة
+└── 8 requests للكتابة
+
+الاستخدام:
+Postman → Import → Select File

@@ -1,0 +1,13 @@
+12 دالة رئيسية:
+├── createBook()
+├── getAllBooks()
+├── getBook()
+├── updateBook()
+├── deleteBook()
+├── rateBook()
+├── getTopViewed()
+├── getTopRated()
+├── getByCategory()
+├── getByLanguage()
+├── searchBooks()
+└── getStatistics()
